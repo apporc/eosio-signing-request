@@ -12,7 +12,7 @@ import {
     SigningRequestEncodingOptions,
 } from '../src'
 import * as TSModule from '../src'
-import {Name, PrivateKey, Serializer, Signature, UInt64} from '@greymass/eosio'
+import {Name, PrivateKey, Serializer, Signature, UInt64} from '@wharfkit/antelope'
 import {IdentityProof} from '../src/identity-proof'
 
 let {SigningRequest, PlaceholderAuth, PlaceholderName} = TSModule
@@ -51,8 +51,7 @@ describe('signing request', function () {
                     account: 'eosio.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data:
-                        '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                    data: '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
                 },
             ],
             callback: '',
@@ -94,15 +93,13 @@ describe('signing request', function () {
                         account: 'eosio.token',
                         name: 'transfer',
                         authorization: [{actor: 'foo', permission: 'active'}],
-                        data:
-                            '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                        data: '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
                     },
                     {
                         account: 'eosio.token',
                         name: 'transfer',
                         authorization: [{actor: 'baz', permission: 'active'}],
-                        data:
-                            '000000000000be39000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                        data: '000000000000be39000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
                     },
                 ],
             ],
@@ -126,8 +123,7 @@ describe('signing request', function () {
                             account: 'eosio.token',
                             name: 'transfer',
                             authorization: [{actor: 'foo', permission: 'active'}],
-                            data:
-                                '000000000000285D000000000000AE39E80300000000000003454F53000000000B68656C6C6F207468657265',
+                            data: '000000000000285D000000000000AE39E80300000000000003454F53000000000B68656C6C6F207468657265',
                         },
                     ],
                 },
@@ -144,8 +140,7 @@ describe('signing request', function () {
                             account: 'eosio.token',
                             name: 'transfer',
                             authorization: [{actor: 'foo', permission: 'active'}],
-                            data:
-                                '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                            data: '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
                         },
                     ],
                     context_free_actions: [],
@@ -177,8 +172,7 @@ describe('signing request', function () {
                     account: 'eosio.token',
                     name: 'transfer',
                     authorization: [{actor: '............1', permission: '............1'}],
-                    data:
-                        '0100000000000000000000000000285d01000000000000000050454e47000000135468616e6b7320666f72207468652066697368',
+                    data: '0100000000000000000000000000285d01000000000000000050454e47000000135468616e6b7320666f72207468652066697368',
                 },
             ],
             callback: '',
@@ -217,6 +211,7 @@ describe('signing request', function () {
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
                     data: {from: 'foo', to: 'bar', quantity: '1.000 EOS', memo: 'hello there'},
+                    abi: recode(abis.get('eosio.token')),
                 },
             ],
             context_free_actions: [],
@@ -265,6 +260,7 @@ describe('signing request', function () {
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'mractive'}],
                     data: {from: 'foo', to: 'mractive', quantity: '1.000 EOS', memo: 'hello there'},
+                    abi: recode(abis.get('eosio.token')),
                 },
             ],
             context_free_actions: [],
@@ -338,6 +334,24 @@ describe('signing request', function () {
                             actor: 'foo',
                             permission: 'bar',
                         },
+                    },
+                    abi: {
+                        abi_extensions: [],
+                        action_results: [],
+                        actions: [
+                            {
+                                name: 'identity',
+                                ricardian_contract: '',
+                                type: 'string',
+                            },
+                        ],
+                        error_messages: [],
+                        ricardian_clauses: [],
+                        structs: [],
+                        tables: [],
+                        types: [],
+                        variants: [],
+                        version: 'eosio::abi/1.1',
                     },
                 },
             ],
@@ -435,6 +449,24 @@ describe('signing request', function () {
                             actor: 'foo',
                             permission: 'bar',
                         },
+                    },
+                    abi: {
+                        abi_extensions: [],
+                        action_results: [],
+                        actions: [
+                            {
+                                name: 'identity',
+                                ricardian_contract: '',
+                                type: 'string',
+                            },
+                        ],
+                        error_messages: [],
+                        ricardian_clauses: [],
+                        structs: [],
+                        tables: [],
+                        types: [],
+                        variants: [],
+                        version: 'eosio::abi/1.1',
                     },
                 },
             ],
@@ -619,14 +651,12 @@ describe('signing request', function () {
         assert.deepEqual(callback, {
             background: false,
             payload: {
-                sig:
-                    'SIG_K1_K4nkCupUx3hDXSHq4rhGPpDMPPPjJyvmF3M6j7ppYUzkR3L93endwnxf3YhJSG4SSvxxU1ytD8hj39kukTeYxjwy5H3XNJ',
+                sig: 'SIG_K1_K4nkCupUx3hDXSHq4rhGPpDMPPPjJyvmF3M6j7ppYUzkR3L93endwnxf3YhJSG4SSvxxU1ytD8hj39kukTeYxjwy5H3XNJ',
                 tx: 'b8e921a7b68d7309847e633d74963f25eb5a7d0b15b1aceb143723c234686a8d',
                 rbn: '0',
                 rid: '0',
                 ex: '2020-07-10T08:40:20',
-                req:
-                    'esr://AwAAAwAAAAAAAChdAAAVbXlhcHA6Ly9sb2dpbj17e2NpZH19AQljaGFpbl9pZHMFAgABAAo',
+                req: 'esr://AwAAAwAAAAAAAChdAAAVbXlhcHA6Ly9sb2dpbj17e2NpZH19AQljaGFpbl9pZHMFAgABAAo',
                 sa: 'foo',
                 sp: 'active',
                 cid: '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4',
